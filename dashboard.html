@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - WebCraft</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+    <header class="app-header">
+        <div class="container">
+            <h1 class="logo"><a href="dashboard.html">WebCraft</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html" class="active">My Projects</a></li>
+                    <li><a href="#" id="btn-new-project">New Project</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="username-display">Username</a>
+                        <div class="dropdown-menu">
+                            <a href="#" id="btn-account">Account</a>
+                            <a href="#" id="btn-logout">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="container">
+            <h2>My Projects</h2>
+            
+            <div class="project-list" id="project-list">
+                <!-- Projects will be loaded here dynamically -->
+                <div class="empty-state" id="empty-projects">
+                    <p>You don't have any projects yet.</p>
+                    <button class="btn btn-primary" id="btn-create-first">Create Your First Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Project Modal -->
+    <div class="modal" id="new-project-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Project</h2>
+                <button class="close-btn" id="close-project-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="new-project-form">
+                    <div class="form-group">
+                        <label for="project-name">Project Name</label>
+                        <input type="text" id="project-name" required>
+                        <small>This will be used in your project URL: /view/project-name</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Editor Type</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="editor-type" value="code" checked> 
+                                Code Editor (HTML, CSS, JS)
+                            </label>
+                            <label>
+                                <input type="radio" name="editor-type" value="visual"> 
+                                Visual Editor
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Create Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Template (For JavaScript to clone) -->
+    <template id="project-template">
+        <div class="project-card">
+            <div class="project-info">
+                <h3 class="project-title"></h3>
+                <p class="project-date"></p>
+                <p class="project-type"></p>
+            </div>
+            <div class="project-actions">
+                <a href="#" class="btn btn-secondary btn-edit">Edit</a>
+                <a href="#" class="btn btn-secondary btn-view">View</a>
+                <button class="btn btn-danger btn-delete">Delete</button>
+            </div>
+        </div>
+    </template>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 WebCraft. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

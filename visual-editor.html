@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Editor - WebCraft</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/visual-editor.css">
+</head>
+<body class="visual-editor-page">
+    <header class="app-header">
+        <div class="container">
+            <h1 class="logo"><a href="dashboard.html">WebCraft</a></h1>
+            <div class="editor-actions">
+                <input type="text" id="project-title" placeholder="Project Title" readonly>
+                <button id="btn-save" class="btn btn-primary">Save</button>
+                <button id="btn-preview" class="btn btn-secondary">Preview</button>
+                <a href="dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+            <div class="user-menu">
+                <a href="#" id="username-display" class="dropdown-toggle">Username</a>
+                <div class="dropdown-menu">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="#" id="btn-logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="visual-editor-container">
+        <div class="elements-sidebar">
+            <h3>Elements</h3>
+            <div class="elements-list">
+                <div class="element-item" draggable="true" data-element-type="header">
+                    <div class="element-icon">H</div>
+                    <div class="element-name">Header</div>
+                </div>
+                <div class="element-item" draggable="true" data-element-type="text">
+                    <div class="element-icon">T</div>
+                    <div class="element-name">Text</div>
+                </div>
+                <div class="element-item" draggable="true" data-element-type="image">
+                    <div class="element-icon">I</div>
+                    <div class="element-name">Image</div>
+                </div>
+                <div class="element-item" draggable="true" data-element-type="button">
+                    <div class="element-icon">B</div>
+                    <div class="element-name">Button</div>
+                </div>
+                <div class="element-item" draggable="true" data-element-type="container">
+                    <div class="element-icon">C</div>
+                    <div class="element-name">Container</div>
+                </div>
+                <div class="element-item" draggable="true" data-element-type="list">
+                    <div class="element-icon">L</div>
+                    <div class="element-name">List</div>
+                </div>
+                <div class="element-item" draggable="true" data-element-type="form">
+                    <div class="element-icon">F</div>
+                    <div class="element-name">Form</div>
+                </div>
+                <div class="element-item" draggable="true" data-element-type="divider">
+                    <div class="element-icon">D</div>
+                    <div class="element-name">Divider</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="canvas-container">
+            <div class="canvas" id="visual-canvas">
+                <div class="drop-message">Drag elements here to build your page</div>
+            </div>
+        </div>
+        
+        <div class="properties-sidebar">
+            <h3>Properties</h3>
+            <div id="properties-panel">
+                <div class="empty-properties">
+                    <p>Select an element to edit its properties</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Element Properties Templates -->
+    <template id="text-properties-template">
+        <div class="property-group">
+            <label for="text-content">Content</label>
+            <textarea id="text-content" class="property-input"></textarea>
+        </div>
+        <div class="property-group">
+            <label for="text-size">Font Size (px)</label>
+            <input type="number" id="text-size" class="property-input" min="8" max="72">
+        </div>
+        <div class="property-group">
+            <label for="text-color">Text Color</label>
+            <input type="color" id="text-color" class="property-input">
+        </div>
+        <div class="property-group">
+            <label for="text-align">Alignment</label>
+            <select id="text-align" class="property-input">
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+            </select>
+        </div>
+    </template>
+
+    <template id="image-properties-template">
+        <div class="property-group">
+            <label for="image-url">Image URL</label>
+            <input type="text" id="image-url" class="property-input">
+        </div>
+        <div class="property-group">
+            <label for="image-alt">Alt Text</label>
+            <input type="text" id="image-alt" class="property-input">
+        </div>
+        <div class="property-group">
+            <label for="image-width">Width (%)</label>
+            <input type="number" id="image-width" class="property-input" min="10" max="100">
+        </div>
+    </template>
+
+    <!-- Preview Modal -->
+    <div class="modal" id="preview-modal">
+        <div class="modal-content preview-content">
+            <div class="modal-header">
+                <h2>Preview</h2>
+                <button class="close-btn" id="close-preview">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="preview-frame"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/visual-editor.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Project - WebCraft</title>
+    <script>
+        // This script loads the project data and renders the page
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Get project name from URL: /view/projectname
+            const pathParts = window.location.pathname.split('/');
+            const projectName = pathParts[pathParts.length - 1];
+            
+            if (!projectName) {
+                document.body.innerHTML = '<div class="error-message">Project not found.</div>';
+                return;
+            }
+            
+            // Load project data
+            try {
+                const response = await fetch(`/data/projects/${projectName}.json`);
+                if (!response.ok) throw new Error('Project not found');
+                
+                const projectData = await response.json();
+                
+                // Set page title
+                document.title = `${projectData.title} - WebCraft`;
+                
+                // Apply CSS
+                const styleElement = document.createElement('style');
+                styleElement.textContent = projectData.css || '';
+                document.head.appendChild(styleElement);
+                
+                // Set HTML content
+                document.getElementById('project-content').innerHTML = projectData.html || '';
+                
+                // Apply JavaScript
+                if (projectData.js) {
+                    const scriptElement = document.createElement('script');
+                    scriptElement.textContent = projectData.js;
+                    document.body.appendChild(scriptElement);
+                }
+            } catch (error) {
+                document.body.innerHTML = '<div class="error-message">Failed to load project: ' + error.message + '</div>';
+            }
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+        .error-message {
+            padding: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            text-align: center;
+            margin: 20px;
+            border-radius: 5px;
+        }
+        .webcraft-badge {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="project-content"></div>
+    <a href="/" class="webcraft-badge">Created with WebCraft</a>
+</body>
+</html>
