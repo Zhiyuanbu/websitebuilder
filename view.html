@@ -7,18 +7,27 @@
     <script>
         // This script loads the project data and renders the page
         window.addEventListener('DOMContentLoaded', async () => {
-            // Get project name from URL: /view/projectname
-            const pathParts = window.location.pathname.split('/');
-            const projectName = pathParts[pathParts.length - 1];
+            // Get project name from URL: /view/projectname or ?project=projectname
+            let projectName;
+            
+            // Check for query parameter first
+            const urlParams = new URLSearchParams(window.location.search);
+            projectName = urlParams.get('project');
+            
+            // If not found in query, try path
+            if (!projectName) {
+                const pathParts = window.location.pathname.split('/');
+                projectName = pathParts[pathParts.length - 1];
+            }
             
             if (!projectName) {
                 document.body.innerHTML = '<div class="error-message">Project not found.</div>';
                 return;
             }
             
-            // Load project data
+            // Load project data - now with /websitebuilder/ prefix
             try {
-                const response = await fetch(`/data/projects/${projectName}.json`);
+                const response = await fetch(`/websitebuilder/data/projects/${projectName}.json`);
                 if (!response.ok) throw new Error('Project not found');
                 
                 const projectData = await response.json();
@@ -75,6 +84,6 @@
 </head>
 <body>
     <div id="project-content"></div>
-    <a href="/" class="webcraft-badge">Created with WebCraft</a>
+    <a href="/websitebuilder/" class="webcraft-badge">Created with WebCraft</a>
 </body>
 </html>
