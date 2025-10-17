@@ -194,7 +194,7 @@ function loadProjects() {
             
             // Set view button link
             const viewBtn = projectCard.querySelector('.btn-view');
-            viewBtn.href = `view.html?project=${project.id}`;
+            viewBtn.href = `/websitebuilder/view.html?project=${project.id}`;
             viewBtn.target = '_blank'; // Open in new tab
             
             // Set delete button functionality
