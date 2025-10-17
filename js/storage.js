@@ -4,6 +4,9 @@
  */
 
 const Storage = {
+    // Base path for the application
+    basePath: '/websitebuilder',
+    
     /**
      * Initialize storage with empty data structures if they don't exist
      */
@@ -119,6 +122,15 @@ const Storage = {
      */
     generateId: function() {
         return Date.now().toString(36) + Math.random().toString(36).substring(2);
+    },
+    
+    /**
+     * Get the full URL path for a project
+     * @param {string} projectId - The project ID
+     * @returns {string} The full URL path
+     */
+    getProjectUrl: function(projectId) {
+        return `${this.basePath}/view.html?project=${projectId}`;
     },
     
     /**
